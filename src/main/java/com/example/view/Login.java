@@ -83,7 +83,7 @@ public class Login {
         loginBtn.setOnAction(e -> {
             LoginController handleLogin = new LoginController();
 
-            if(handleLogin.loginValid(emailField.getText(), passwordField.getText())) {
+            if(handleLogin.isLoginValid(emailField.getText(), passwordField.getText())) {
                 Homepage homePage = new Homepage();
                 scene = homePage.show();
                 

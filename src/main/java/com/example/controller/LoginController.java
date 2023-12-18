@@ -7,11 +7,10 @@ import com.example.model.AppAlert;
 
 public class LoginController {
 
-    static Connect connect = Connect.getInstance();
-
+    Connect connect = Connect.getInstance();
     AppAlert alert = new AppAlert();
 
-    public boolean loginValid(String userEmail, String userPassword) {
+    public boolean isLoginValid(String userEmail, String userPassword) {
 
         // Validate username and password
         if (userEmail.isEmpty() || userPassword.isEmpty()) {

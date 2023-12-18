@@ -54,7 +54,7 @@ public class Connect {
             // TODO Auto-generated catch block
             e.printStackTrace();
         }
-        //deketin trs pilih surround try catch
+
         return rs;
     }
 

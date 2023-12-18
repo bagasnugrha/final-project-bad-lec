@@ -1,7 +1,10 @@
 package com.example.view;
 
-import java.time.LocalDate;
 
+import java.time.LocalDate;
+import java.time.ZoneId;
+
+import com.example.controller.RegisterController;
 import com.example.model.AppMenuBar;
 import com.example.model.Layout;
 
@@ -117,6 +120,25 @@ public class Register {
     public void setEvent(Stage primaryStage) {
         menubar.setEventMenuBar(primaryStage);
         // isi register controller
+
+        registerBtn.setOnAction(e -> {
+            RegisterController validate = new RegisterController();
+
+            // Date parsing
+            java.util.Date dateOfBirth = java.util.Date.from(dobPicker.getValue().atStartOfDay(ZoneId.systemDefault()).toInstant());
+            java.sql.Date sqlDob = new java.sql.Date(dateOfBirth.getTime());
+
+            System.out.println(genderGroup.getSelectedToggle()); // ngetes outputnya buat nanti dijadiin argumen di insert database
+
+            // boolean isOk = validate.isInputValid(nameField.getText(), emailField.getText(), passwordField.getText(), confirmPasswordField.getText(), genderGroup, sqlDob, phoneField.getText())
+            //                 && validate.isEmailValid(emailField.getText());
+
+            // if (isOk) {
+            //     // masukin data user dari textfield ke database
+            //     validate.inputNewUser(nameField.getText(), emailField.getText(), passwordField.getText(), sqlDob, genderGroup, phoneField.getText());
+            // }
+                
+        });
     }
 
     public Scene show() {
