@@ -78,17 +78,19 @@ public class Login {
     }
 
     public void setEvent(Stage primaryStage) {
-        menubar.setEventMenuBar(primaryStage);
-        // isi controller login
+        menubar.setEventMenuBarLogin(primaryStage);
+
+        // isi controller login buat button
         loginBtn.setOnAction(e -> {
             LoginController handleLogin = new LoginController();
 
             if(handleLogin.isLoginValid(emailField.getText(), passwordField.getText())) {
-                Homepage homePage = new Homepage();
-                scene = homePage.show();
+                AppointmentList appointmentList = new AppointmentList();
+                scene = appointmentList.show();
                 
-                primaryStage.setTitle("Homepage");
+                primaryStage.setTitle("Appointment List");
                 primaryStage.setScene(scene);
+                appointmentList.setEvent(primaryStage);
             }
         });
     }

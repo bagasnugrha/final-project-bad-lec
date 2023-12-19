@@ -17,6 +17,12 @@ public class User {
 		this.userPhoneNumber = userPhoneNumber;
 	}
 
+    /*
+     * overload constructor, ga ada parameter
+     * buat dipake sama login controller
+     **/
+    public User() {}
+
 	public String getUserID() {
 		return userID;
 	}

@@ -1,5 +1,6 @@
 package com.example.model;
 
+import com.example.view.AppointmentList;
 import com.example.view.Login;
 import com.example.view.Register;
 
@@ -15,7 +16,9 @@ public class AppMenuBar {
 
     MenuBar menuBar;
     Menu pageMenu;
-    MenuItem loginMenuItem, registerMenuItem;
+    MenuItem loginMenuItem, registerMenuItem, appointmentListItem, appointmentFormItem, logoutItem;
+
+    Login login;
 
     public MenuBar createLoginMenuBar() {
         
@@ -31,10 +34,10 @@ public class AppMenuBar {
 
     }
 
-    public void setEventMenuBar(Stage primaryStage) {
+    public void setEventMenuBarLogin(Stage primaryStage) {
         
         // login menu yg direct ke halaman login
-        Login login = new Login();
+        login = new Login();
 
         loginMenuItem.setOnAction(e -> {
             scene = login.show();
@@ -51,6 +54,51 @@ public class AppMenuBar {
             register.setEvent(primaryStage);
         });
 
+    }
+
+    public MenuBar createHomeMenuBar() {
+    	
+    	menuBar = new MenuBar();
+    	pageMenu = new Menu("Home");
+    	appointmentListItem = new MenuItem("Appointment List");
+        appointmentFormItem = new MenuItem("Appointment Form");
+        logoutItem = new MenuItem("Logout");
+    	
+    	pageMenu.getItems().addAll(appointmentListItem, appointmentFormItem, logoutItem);
+    	menuBar.getMenus().add(pageMenu);
+    	
+		return menuBar;
+    	
+    }
+
+    public void setEventMenuBarHome(Stage primaryStage) {
+        AppointmentList appointmentList = new AppointmentList();
+      
+        appointmentListItem.setOnAction(e -> {
+        	scene = appointmentList.show();
+        	primaryStage.setScene(scene);
+        	appointmentList.setEvent(primaryStage);
+
+        });
+        
+        // ! uncomment pas appointment form udh jadi
+        // AppointmentForm appointmentForm = new AppointmentForm();
+        
+        // appointmentFormItem.setOnAction(e -> {
+        // 	scene = appointmentForm.show();
+        // 	primaryStage.setScene(scene);
+        // 	appointmentForm.setEvent(primaryStage);
+        	
+        // });
+
+        logoutItem.setOnAction(e -> {
+            login = new Login();
+
+            scene = login.show();
+            primaryStage.setScene(scene);
+            primaryStage.show();
+            login.setEvent(primaryStage);
+        });
     }
 
 }

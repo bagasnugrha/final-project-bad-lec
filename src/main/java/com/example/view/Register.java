@@ -116,7 +116,7 @@ public class Register {
     }
 
     public void setEvent(Stage primaryStage) {
-        menubar.setEventMenuBar(primaryStage);
+        menubar.setEventMenuBarLogin(primaryStage);
         // isi register controller
 
         registerBtn.setOnAction(e -> {
@@ -124,7 +124,14 @@ public class Register {
 
             String selectedGender = (genderGroup.getSelectedToggle() == maleRb) ? "Male" :"Female";
 
-            validate.handleRegister(nameField.getText(), emailField.getText(), passwordField.getText(), confirmPasswordField.getText(), dobPicker, selectedGender, genderGroup, phoneField.getText());
+            // kalo isi data register valid -> balik ke halaman login
+            if(validate.isRegisterValid(nameField.getText(), emailField.getText(), passwordField.getText(), confirmPasswordField.getText(), dobPicker, selectedGender, genderGroup, phoneField.getText())) {
+                Login login = new Login();
+                scene = login.show();
+                login.setEvent(primaryStage);
+                primaryStage.setScene(scene);
+            }
+
         });
     }
 

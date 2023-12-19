@@ -4,11 +4,15 @@ import java.sql.SQLException;
 
 import com.example.util.Connect;
 import com.example.model.AppAlert;
+import com.example.model.User;
 
 public class LoginController {
 
     Connect connect = Connect.getInstance();
     AppAlert alert = new AppAlert();
+
+    // access public, biar id nya bisa diambil sama appointment list
+    public static User user;
 
     public boolean isLoginValid(String userEmail, String userPassword) {
 
@@ -18,7 +22,7 @@ public class LoginController {
             return false;
         }
 
-        String query = "SELECT * FROM user WHERE userEmail = ? AND userPassword = ?";
+        String query = "SELECT userID FROM user WHERE userEmail = ? AND userPassword = ?";
 
         try {
             connect.ps = connect.getPreparedStatement(query);
@@ -27,10 +31,15 @@ public class LoginController {
             connect.rs = connect.ps.executeQuery();
 
             if (connect.rs.next()) {
-                System.out.println("User login successful.");
+                String userId = connect.rs.getString("userID");
+
                 alert.showInformationAlert("Success", "Login successful.");  
 
+                user = new User();
+                user.setUserID(userId);
+
                 return true;
+
             } else {
                 alert.showInformationAlert("Error", "Invalid username or password. Please try again.");
             }
