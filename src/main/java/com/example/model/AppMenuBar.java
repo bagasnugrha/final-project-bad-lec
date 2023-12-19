@@ -1,5 +1,6 @@
 package com.example.model;
 
+import com.example.view.AppointmentForm;
 import com.example.view.AppointmentList;
 import com.example.view.Login;
 import com.example.view.Register;
@@ -81,15 +82,15 @@ public class AppMenuBar {
 
         });
         
-        // ! uncomment pas appointment form udh jadi
-        // AppointmentForm appointmentForm = new AppointmentForm();
         
-        // appointmentFormItem.setOnAction(e -> {
-        // 	scene = appointmentForm.show();
-        // 	primaryStage.setScene(scene);
-        // 	appointmentForm.setEvent(primaryStage);
+        AppointmentForm appointmentForm = new AppointmentForm();
+        
+        appointmentFormItem.setOnAction(e -> {
+        	scene = appointmentForm.show();
+        	primaryStage.setScene(scene);
+        	appointmentForm.setEvent(primaryStage);
         	
-        // });
+        });
 
         logoutItem.setOnAction(e -> {
             login = new Login();
