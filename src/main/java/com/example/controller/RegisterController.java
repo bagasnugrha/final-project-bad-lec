@@ -49,7 +49,7 @@ public class RegisterController {
 
         try {
             if (connect.rs.next()) { // kalo result set nemu email yg sama di database
-                alert.showInformationAlert("Error", "Email has already been registered!");
+                alert.showErrorAlert("Error", "Email has already been registered!");
                 return false;
             }
         } catch (SQLException e) {
@@ -63,25 +63,25 @@ public class RegisterController {
     private boolean isInputValid(String userName, String userEmail, String userPassword, String confirmPassword, Date userDateOfBirth, ToggleGroup genderGroup, String userPhoneNumber) {
 
         if (!userEmail.endsWith("@gmail.com")) {
-            alert.showInformationAlert("Warning", "Email must end with '@gmail.com'.");
+            alert.showWarningAlert("Warning", "Email must end with '@gmail.com'.");
             return false;
         } else if (!(userPhoneNumber.startsWith("0")) || userPhoneNumber.isEmpty()) { // ! validasi nomor telpon
-            alert.showInformationAlert("Warning", "Phone number must starts with 0.");
+            alert.showWarningAlert("Warning", "Phone number must starts with 0.");
             return false;
         } else if (userName.isEmpty()) {
-            alert.showInformationAlert("Warning", "Name must be filled.");
+            alert.showWarningAlert("Warning", "Name must be filled.");
             return false;
         } else if (!(userPassword.length() >= 6)) {
-            alert.showInformationAlert("Warning", "Password must contain at least 6 characters.");
+            alert.showWarningAlert("Warning", "Password must contain at least 6 characters.");
             return false;
         } else if (!userPassword.equals(confirmPassword)) {
-            alert.showInformationAlert("Warning", "Confirm Password must be the same as Password.");
+            alert.showWarningAlert("Warning", "Confirm Password must be the same as Password.");
             return false;
         } else if (genderGroup.getSelectedToggle() == null) {
-            alert.showInformationAlert("Warning", "Gender must be selected.");
+            alert.showWarningAlert("Warning", "Gender must be selected.");
             return false;
         } else if (userDateOfBirth.equals(null)) {
-            alert.showInformationAlert("Warning", "Date of birth must be filled.");
+            alert.showWarningAlert("Warning", "Date of birth must be filled.");
             return false;
         }
 
@@ -106,7 +106,7 @@ public class RegisterController {
             ps.execute();
             alert.showInformationAlert("Success", "Account Created");
         } catch (SQLException e) {
-            alert.showInformationAlert("Error", "Can not add new user to database");
+            alert.showErrorAlert("Error", "Can not add new user to database");
             e.printStackTrace();
         }
 

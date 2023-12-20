@@ -34,7 +34,7 @@ public class AppointmentListController {
             connect.ps.setString(1, userID);
             connect.rs = connect.ps.executeQuery();
 
-            System.out.println(userID);
+            // System.out.println(userID);
 
             while (connect.rs.next()) {
                 String appointmentID = connect.rs.getString("appointmentID");

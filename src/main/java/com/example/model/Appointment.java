@@ -20,13 +20,6 @@ public class Appointment {
 		this.timeSlot = timeSlot;
 	}
 
-//	public AppointmentData(String appointmentID, Date appointmentDate, Float timeSlot, String userID) {
-//		this.appointmentID = appointmentID;
-//		this.appointmentDate = appointmentDate;
-//		this.timeSlot = timeSlot;
-//		this.userID = userID;
-//	}
-
 
 	public String getAppointmentID() {
 		return appointmentID;

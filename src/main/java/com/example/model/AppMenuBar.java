@@ -51,6 +51,7 @@ public class AppMenuBar {
 
         registerMenuItem.setOnAction(e -> {
             scene = register.show();
+            primaryStage.setTitle("Register");
             primaryStage.setScene(scene);
             register.setEvent(primaryStage);
         });
@@ -77,21 +78,24 @@ public class AppMenuBar {
       
         appointmentListItem.setOnAction(e -> {
         	scene = appointmentList.show();
+            primaryStage.setTitle("Appointment List");
         	primaryStage.setScene(scene);
         	appointmentList.setEvent(primaryStage);
 
         });
         
-        
+        // menu isi form appointment
         AppointmentForm appointmentForm = new AppointmentForm();
         
         appointmentFormItem.setOnAction(e -> {
         	scene = appointmentForm.show();
+            primaryStage.setTitle("Appointment Form");
         	primaryStage.setScene(scene);
         	appointmentForm.setEvent(primaryStage);
         	
         });
 
+        // menu logout
         logoutItem.setOnAction(e -> {
             login = new Login();
 

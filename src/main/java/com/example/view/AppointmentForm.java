@@ -5,6 +5,7 @@ import java.time.ZoneId;
 
 import com.example.controller.AppointmentFormController;
 import com.example.controller.LoginController;
+import com.example.model.AppAlert;
 import com.example.model.AppMenuBar;
 import com.example.model.Layout;
 import com.example.model.User;
@@ -25,6 +26,7 @@ public class AppointmentForm {
     
 	AppointmentFormController afController;
 	User user;
+    AppAlert alert;
 	
 	Scene scene;
 	BorderPane root;
@@ -47,6 +49,7 @@ public class AppointmentForm {
 	
 	public void init() {
 		afController = new AppointmentFormController();
+        alert = new AppAlert();
 
 		doctorNames = afController.getDoctorNames();
 		
@@ -90,21 +93,38 @@ public class AppointmentForm {
 	}
 	
 	public void setEvent(Stage primaryStage) {
+        // menubar
         menubar.setEventMenuBarHome(primaryStage);
         
+        // ambil variabel user yg login
         user = LoginController.user;
         
         submitBtn.setOnAction(e -> {
-        	System.out.println("Submit button pressed");
+
             String selectedDoctorName = doctorNameCB.getValue();
             Float selectedTimeSlot = timeSlotCB.getValue();
             String userID = user.getUserID();
-
             String doctorID = afController.getDoctorID(selectedDoctorName);
+            
+            // cek inputnya valid atau ga
+            if(!afController.isInputValid(selectedDoctorName, sqlDob, selectedTimeSlot)){
+                alert.showErrorAlert("Error", "Please select all of the required data");
+            } else {
+                afController.insertAppointmentToDatabase(sqlDob, userID, doctorID, selectedTimeSlot);
+                alert.showInformationAlert("Success", "Appointment is created");
+                
+                // direct ke halaman appointment list
+            	AppointmentList appointmentList = new AppointmentList();
+                scene = appointmentList.show();
+                
+                primaryStage.setTitle("Appointment List");
+                primaryStage.setScene(scene);
+                appointmentList.setEvent(primaryStage);
+                // System.out.println("Appointment is booked");
+            }
 
-            afController.insertAppointmentToDatabase(sqlDob, userID, doctorID, selectedTimeSlot);
+            // System.out.println("Submit button pressed");
 
-            System.out.println("Appointment is booked");
         });
     }
    

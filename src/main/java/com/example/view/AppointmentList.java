@@ -83,8 +83,6 @@ public class AppointmentList {
 
     public void setEvent(Stage primaryStage) {
     	 menubar.setEventMenuBarHome(primaryStage);
-
-
     }
 
     public Scene show() {
