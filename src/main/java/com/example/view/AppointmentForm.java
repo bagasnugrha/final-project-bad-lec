@@ -1,7 +1,9 @@
 package com.example.view;
 
+import java.sql.Date;
 import java.time.LocalDate;
 import java.time.ZoneId;
+import java.util.Calendar;
 
 import com.example.controller.AppointmentFormController;
 import com.example.controller.LoginController;
@@ -37,7 +39,7 @@ public class AppointmentForm {
 	
 	//Content
 	Label doctorNameLbl, dateLbl, timeSlotLbl;
-	DatePicker dobPicker;
+	DatePicker apDatePicker;
 	ComboBox<String> doctorNameCB = new ComboBox<>();
 	ComboBox<Float> timeSlotCB = new ComboBox<>();
 	Button submitBtn;
@@ -47,7 +49,7 @@ public class AppointmentForm {
 	java.util.Date dateOfBirth;
 	java.sql.Date sqlDob;
 	
-	public void init() {
+	private void init() {
 		afController = new AppointmentFormController();
         alert = new AppAlert();
 
@@ -60,7 +62,7 @@ public class AppointmentForm {
 		doctorNameCB.getItems().addAll(doctorNames);
 		timeSlotCB.getItems().addAll(10.00f, 12.00f, 14.00f, 16.00f); 
 
-		dobPicker = new DatePicker(LocalDate.now());
+		apDatePicker = new DatePicker(LocalDate.now());
 		
 		submitBtn = new Button("Book Appointment");
 		
@@ -68,7 +70,7 @@ public class AppointmentForm {
 		layout = new Layout();
 	}
 	
-	public void set() {
+	private void set() {
 	    menubar = new AppMenuBar();
 	    homeMenuBar = menubar.createHomeMenuBar();
 	    grid = layout.createGridPane();
@@ -76,7 +78,7 @@ public class AppointmentForm {
 	    grid.add(doctorNameLbl, 0, 0);
 	    grid.add(doctorNameCB, 0, 1);
 	    grid.add(dateLbl, 0, 2);
-	    grid.add(dobPicker, 0, 3);
+	    grid.add(apDatePicker, 0, 3);
 	    grid.add(timeSlotLbl, 0, 4);
 	    grid.add(timeSlotCB, 0, 5);
 	    grid.add(submitBtn, 0, 6);
@@ -86,7 +88,9 @@ public class AppointmentForm {
 	    root = layout.createBorderPane(homeMenuBar, grid);
 	    scene = new Scene(root, 1048, 576);
 
-	    dobPicker.valueProperty().addListener((observable, oldValue, newValue) -> {
+        sqlDob = new Date(Calendar.getInstance().getTime().getTime());
+
+	    apDatePicker.valueProperty().addListener((observable, oldValue, newValue) -> {
 	        dateOfBirth = java.util.Date.from(newValue.atStartOfDay(ZoneId.systemDefault()).toInstant());
 	        sqlDob = new java.sql.Date(dateOfBirth.getTime());
 	    });
@@ -111,7 +115,7 @@ public class AppointmentForm {
                 alert.showErrorAlert("Error", "Please select all of the required data");
             } else {
                 afController.insertAppointmentToDatabase(sqlDob, userID, doctorID, selectedTimeSlot);
-                alert.showInformationAlert("Success", "Appointment is created");
+                
                 
                 // direct ke halaman appointment list
             	AppointmentList appointmentList = new AppointmentList();

@@ -42,7 +42,7 @@ public class AppointmentList {
 	User user;
 
 
-    public void init() {
+    private void init() {
         appointmentTableView = new TableView<>();
 	    apController = new AppointmentListController();
 	    
@@ -56,7 +56,7 @@ public class AppointmentList {
 	    layout = new Layout();
     }
     
-    public void set() {
+    private void set() {
         menubar = new AppMenuBar();
     	homeMenuBar = menubar.createHomeMenuBar();
     	

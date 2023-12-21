@@ -3,6 +3,8 @@ package com.example.controller;
 import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
+import java.time.LocalDate;
+import java.time.ZoneId;
 
 import com.example.model.AppAlert;
 import com.example.util.Connect;
@@ -63,18 +65,29 @@ public class AppointmentFormController {
 		
         PreparedStatement ps = connect.getPreparedStatement(query);
 
-        try {
-            ps.setString(1, generateAppointmentID());
-            ps.setDate(2, appointmentDate);
-            ps.setString(3, userID);
-            ps.setString(4, doctorID);
-            ps.setFloat(5, timeSlot);
-            ps.execute();
-        } catch (SQLException e) {
-            e.printStackTrace();
-        } finally {
-            connect.closePreparedStatement();
+        LocalDate localDate = LocalDate.now();
+
+        java.util.Date currentDate = java.util.Date.from(localDate.atStartOfDay().atZone(ZoneId.systemDefault()).toInstant());
+        java.sql.Date sqlCurrentDate = new java.sql.Date(currentDate.getTime());
+
+        if (appointmentDate.compareTo(sqlCurrentDate) >= 0) {
+            try {
+                ps.setString(1, generateAppointmentID());
+                ps.setDate(2, appointmentDate);
+                ps.setString(3, userID);
+                ps.setString(4, doctorID);
+                ps.setFloat(5, timeSlot);
+                ps.execute();
+                alert.showInformationAlert("Success", "Appointment is created");
+            } catch (SQLException e) {
+                e.printStackTrace();
+            } finally {
+                connect.closePreparedStatement();
+            }
+        } else {
+            alert.showErrorAlert("Error", "Invalid Booking Date");
         }
+
         
     }
 	 

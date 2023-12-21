@@ -4,6 +4,7 @@ import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.time.ZoneId;
+import java.util.Calendar;
 
 import com.example.model.AppAlert;
 import com.example.util.Connect;
@@ -22,8 +23,12 @@ public class RegisterController {
         // Date parsing
         java.util.Date dateOfBirth = java.util.Date.from(dobPicker.getValue().atStartOfDay(ZoneId.systemDefault()).toInstant());
         java.sql.Date sqlDob = new java.sql.Date(dateOfBirth.getTime());
+        java.sql.Date curDate = new Date(Calendar.getInstance().getTime().getTime());
 
-
+        if (sqlDob.compareTo(curDate) > 0) {
+            alert.showErrorAlert("Error", "Invalid Date!");
+            return false;
+        } 
         // validasi input jangan ada yg kosong
         if(!isInputValid(userName, userEmail, userPassword, confirmPassword, sqlDob, genderGroup, userPhoneNumber)) {
             return false;
