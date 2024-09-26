@@ -1,0 +1,34 @@
+CREATE TABLE `user` (
+    userID CHAR(5) NOT NULL PRIMARY KEY,
+    userName VARCHAR(50) NOT NULL,
+    userEmail VARCHAR(50) NOT NULL,
+    userPassword VARCHAR(50),
+    userDateOfBirth DATE NOT NULL,
+    userGender VARCHAR(10) NOT NULL,
+    userPhoneNumber VARCHAR(10) NOT NULL
+);
+
+CREATE TABLE `doctor` (
+    doctorID CHAR(5) NOT NULL PRIMARY KEY,
+    doctorName VARCHAR(50) NOT NULL,
+    doctorEmail VARCHAR(50) NOT NULL,
+    doctorPassword VARCHAR(50),
+    doctorDateOfBirth DATE NOT NULL,
+    doctorGender VARCHAR(10) NOT NULL,
+    doctorPhoneNumber VARCHAR(10) NOT NULL
+);
+
+CREATE TABLE `appointment` (
+    appointmentID CHAR(5) NOT NULL PRIMARY KEY,
+    appointmentDate DATE NOT NULL,
+    userID CHAR(5),
+    doctorID CHAR(5),
+    timeSlot FlOAT(10) NOT NULL,
+    FOREIGN KEY (userID) REFERENCES user(userID) ON UPDATE CASCADE ON DELETE CASCADE,
+    FOREIGN KEY (doctorID) REFERENCES doctor(doctorID) ON UPDATE CASCADE ON DELETE CASCADE
+);
+
+INSERT INTO `doctor` (doctorID, doctorName, doctorEmail, doctorPassword, doctorDateOfBirth, doctorGender, doctorPhoneNumber) VALUES
+('DO003', 'Dr. Jon', 'dr.jon@budipintar', 'dokter123', '1970-05-21', 'Male', '081123270'),
+('DO004', 'Dr. Ayu', 'dr.ayu@gmail.com', 'dokter123', '1980-10-12', 'Female', '081351441'),
+('DO005', 'Dr. Budi', 'dr.budi@gmail.com', 'budipintar', '1967-1-30', 'Male', '0813314161');

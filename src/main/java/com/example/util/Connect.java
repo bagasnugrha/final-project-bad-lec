@@ -7,7 +7,7 @@ public class Connect {
 
     private final String USERNAME = "root"; //root = username default device
     //pake kapital semua supaya keliatannya aja biasanya kalau final kek gt
-    private final String PASSWORD = "password";
+    private final String PASSWORD = "";
     private final String DATABASE = "clinicconnect"; //sesuai dengan nama database yg dibuat
     private final String HOST = "localhost:3306"; //sesuain sm port MySQL di xampp
 
